@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import localFont from "next/font/local";
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation'; // Use next/navigation
+import { usePathname } from 'next/navigation'; // Use usePathname from next/navigation
 import "./globals.css";
 import React from 'react';
 
@@ -29,12 +29,12 @@ export default function RootLayout({
 }) {
   const [role, setRole] = useState<string | null>(null);
   const [isLandingPage, setIsLandingPage] = useState<boolean>(false);
-  const router = useRouter(); // Get the router object
+  const pathname = usePathname(); // Use usePathname hook to get the current pathname
 
   useEffect(() => {
     // Set the landing page status based on the current pathname
-    setIsLandingPage(router.pathname === '/');
-  }, [router.pathname]); // Only run when the pathname changes
+    setIsLandingPage(pathname === '/');
+  }, [pathname]); // Only run when the pathname changes
 
   return (
     <ClerkProvider>
